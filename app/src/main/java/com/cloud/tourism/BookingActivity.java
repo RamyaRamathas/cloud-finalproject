@@ -197,22 +197,25 @@ public class BookingActivity extends AppCompatActivity{
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
 
-                seatType = typeSpinner.getSelectedItem().toString();
-                //Toast.makeText(BookingActivity.this, ""+jduration, Toast.LENGTH_SHORT).show();
+                if(dateSpinner.getSelectedItem() != null) {
 
-                String dur = jduration.get(type.indexOf(seatType));
+                    seatType = typeSpinner.getSelectedItem().toString();
+                    //Toast.makeText(BookingActivity.this, ""+jduration, Toast.LENGTH_SHORT).show();
 
-                txt_duration.setText(dur);
+                    String dur = jduration.get(type.indexOf(seatType));
 
-                amt = cost.get(type.indexOf(seatType));
-                //Toast.makeText(BookingActivity.this, ""+journeyIds, Toast.LENGTH_SHORT).show();
-                journeyId = journeyIds.get(type.indexOf(seatType));
-                long price = Integer.parseInt(amt)*totalTickets;
-                double tax = price*0.15;
-                txt_tax.setText(tax+"");
-                amount = price + tax;
-                txt_amount.setText((price+tax)+"");
+                    txt_duration.setText(dur);
 
+                    amt = cost.get(type.indexOf(seatType));
+                    txt_tickets.setText(totalTickets + "\n($" + amt + " per ticket)");
+                   // Toast.makeText(BookingActivity.this, "" + journeyIds, Toast.LENGTH_SHORT).show();
+                    journeyId = journeyIds.get(type.indexOf(seatType));
+                    long price = Integer.parseInt(amt) * totalTickets;
+                    double tax = price * 0.15;
+                    txt_tax.setText(tax + "");
+                    amount = price + tax;
+                    txt_amount.setText((price + tax) + "");
+                }
             }
             public void onNothingSelected(AdapterView<?> arg0) {
 
@@ -222,15 +225,17 @@ public class BookingActivity extends AppCompatActivity{
         seatsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                totalTickets = Integer.parseInt(seatsSpinner.getSelectedItem().toString());
-                txt_tickets.setText(totalTickets+"\n($"+amt+" per ticket)");
 
-                long price = Integer.parseInt(amt)*totalTickets;
-                double tax = price*0.15;
-                txt_tax.setText(tax+"");
-                amount = price + tax;
-                txt_amount.setText((price+tax)+"");
+                if(dateSpinner.getSelectedItem() != null) {
+                    totalTickets = Integer.parseInt(seatsSpinner.getSelectedItem().toString());
+                    txt_tickets.setText(totalTickets + "\n($" + amt + " per ticket)");
 
+                    long price = Integer.parseInt(amt) * totalTickets;
+                    double tax = price * 0.15;
+                    txt_tax.setText(tax + "");
+                    amount = price + tax;
+                    txt_amount.setText((price + tax) + "");
+                }
             }
             public void onNothingSelected(AdapterView<?> arg0) {
 
@@ -241,7 +246,7 @@ public class BookingActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(BookingActivity.this, ""+journeyId+" "+amount+" "+totalTickets, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(BookingActivity.this, ""+journeyId+" "+amount+" "+totalTickets, Toast.LENGTH_SHORT).show();
 
                 CheckSeatsAsyncTask a = new CheckSeatsAsyncTask(journeyId, totalTickets);
                 a.execute();
@@ -470,45 +475,56 @@ public class BookingActivity extends AppCompatActivity{
                         typeSpinner.setAdapter(typeAdapter);
                         seatsSpinner.setAdapter(seatsAdapter);
 
+                        if (response.length() == 0) {
+                            Toast.makeText(BookingActivity.this, "No Routes found!", Toast.LENGTH_SHORT).show();
+                            journeyId="";
+                            amount=0;
+                            duration=0;
+                            txt_amount.setText("0");
+                            txt_date.setText("None");
+                            txt_duration.setText("0");
+                            txt_tax.setText("0");
+                            txt_tickets.setText("0");
+                        } else{
 
-                        try {
-                            for(int i=0;i<response.length();i++) {
-                                JSONArray jsonObject = new JSONArray();
-                                jsonObject = response.getJSONArray(i);
+                            try {
+                                for (int i = 0; i < response.length(); i++) {
+                                    JSONArray jsonObject = new JSONArray();
+                                    jsonObject = response.getJSONArray(i);
 
-                                String da = String.valueOf(jsonObject.get(0));
-                                String du = String.valueOf(jsonObject.get(1));
-                                String co = String.valueOf(jsonObject.get(2));
-                                String ty = String.valueOf(jsonObject.get(3));
-                                String com = String.valueOf(jsonObject.get(5));
-                                String con = String.valueOf(jsonObject.get(6));
-                                String jid = String.valueOf(jsonObject.get(7));
+                                    String da = String.valueOf(jsonObject.get(0));
+                                    String du = String.valueOf(jsonObject.get(1));
+                                    String co = String.valueOf(jsonObject.get(2));
+                                    String ty = String.valueOf(jsonObject.get(3));
+                                    String com = String.valueOf(jsonObject.get(5));
+                                    String con = String.valueOf(jsonObject.get(6));
+                                    String jid = String.valueOf(jsonObject.get(7));
 
 //                                Toast.makeText(BookingActivity.this, ""+da+"\n"+du+"\n"+co+"\n"+ty+"\n"+com+"\n"+con+"\n", Toast.LENGTH_SHORT).show();
 
-                                if(!dates.contains(da))
-                                    dates.add(da);
-                                jduration.add(du);
-                                cost.add(co);
-                                type.add(ty);
-                                company.add(com);
-                                contact.add(con);
-                                journeyIds.add(jid);
-                            }
-                            dateAdapter.notifyDataSetChanged();
-                            typeAdapter.notifyDataSetChanged();
+                                    if (!dates.contains(da))
+                                        dates.add(da);
+                                    jduration.add(du);
+                                    cost.add(co);
+                                    type.add(ty);
+                                    company.add(com);
+                                    contact.add(con);
+                                    journeyIds.add(jid);
+                                }
+                                dateAdapter.notifyDataSetChanged();
+                                typeAdapter.notifyDataSetChanged();
 
-                        } catch (JSONException e) {
-                            Toast.makeText(BookingActivity.this, ""+e, Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
+                            } catch (JSONException e) {
+                                Toast.makeText(BookingActivity.this, "" + e, Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-
-                Toast.makeText(BookingActivity.this, "No Routes Found!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(BookingActivity.this, "No Routes Found!", Toast.LENGTH_SHORT).show();
             }
         }
         );
@@ -567,8 +583,7 @@ public class BookingActivity extends AppCompatActivity{
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-
-                Toast.makeText(BookingActivity.this, "No Routes Found!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(BookingActivity.this, "No Routes Found!", Toast.LENGTH_SHORT).show();
             }
         }
         );
@@ -588,7 +603,7 @@ public class BookingActivity extends AppCompatActivity{
                     public void onResponse(String response) {
 
                         if(response.equals("Error")){
-                            Toast.makeText(BookingActivity.this, "Please select/insert all fields!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BookingActivity.this, "No Routes found!", Toast.LENGTH_SHORT).show();
                         }else {
 
                             seatsLeft = Integer.parseInt(response);

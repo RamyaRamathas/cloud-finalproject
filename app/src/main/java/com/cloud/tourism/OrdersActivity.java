@@ -73,7 +73,7 @@ public class OrdersActivity extends AppCompatActivity {
                 in.putExtra("busType",bType);
                 startActivity(in);
 
-                Toast.makeText(OrdersActivity.this, ""+jsource+"\n"+jdest+"\n"+amount+"\n"+btime+"\n"+totseats+"\n"+jdate+"\n"+jdur+"\n"+bType, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(OrdersActivity.this, ""+jsource+"\n"+jdest+"\n"+amount+"\n"+btime+"\n"+totseats+"\n"+jdate+"\n"+jdur+"\n"+bType, Toast.LENGTH_SHORT).show();
             }
         });
     }
