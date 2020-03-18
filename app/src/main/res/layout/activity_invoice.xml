@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InvoiceActivity">
+
+    <RelativeLayout
+        android:id="@+id/rel"
+        android:layout_width="375dp"
+        android:layout_height="265dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"></RelativeLayout>
+
+    <ImageView
+        android:id="@+id/img6"
+        android:layout_width="170dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="31dp"
+        android:layerType="software"
+        android:src="@drawable/dotted"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/img5" />
+
+    <ImageView
+        android:id="@+id/img7"
+        android:layout_width="208dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:layerType="software"
+        android:src="@drawable/dotted"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <ImageView
+        android:id="@+id/img9"
+        android:layout_width="204dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
+        android:layerType="software"
+        android:src="@drawable/dotted"
+        app:layout_constraintStart_toEndOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/img8" />
+
+    <ImageView
+        android:id="@+id/img10"
+        android:layout_width="189dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="32dp"
+        android:layerType="software"
+        android:src="@drawable/dotted"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/img9" />
+
+    <ImageView
+        android:id="@+id/img8"
+        android:layout_width="216dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="32dp"
+        android:layerType="software"
+        android:src="@drawable/dotted"
+        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/img7" />
+
+    <TextView
+        android:id="@+id/seats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="19dp"
+        android:text="TextView"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/img9"
+        app:layout_constraintTop_toBottomOf="@+id/amt" />
+
+    <TextView
+        android:id="@+id/bType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="19dp"
+        android:text="TextView"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/img7"
+        app:layout_constraintTop_toBottomOf="@+id/jduration" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="19dp"
+        android:text="Total Seats"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="24dp"
+        android:text="Invoice Details"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:text="Source and Destination"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="20dp"
+        android:text="Journey Date"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/city" />
+
+    <TextView
+        android:id="@+id/jdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/img5"
+        app:layout_constraintTop_toBottomOf="@+id/city" />
+
+    <ImageView
+        android:id="@+id/img5"
+        android:layout_width="199dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
+        android:layerType="software"
+        android:src="@drawable/dotted"
+        app:layout_constraintStart_toEndOf="@+id/tv"
+        app:layout_constraintTop_toBottomOf="@+id/city" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="19dp"
+        android:text="journey Duration:"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="19dp"
+        android:text="Bus Type:"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="18dp"
+        android:text="Amount:"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="19dp"
+        android:text="Booking Time"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+    <TextView
+        android:id="@+id/jduration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="19dp"
+        android:text="TextView"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/img6"
+        app:layout_constraintTop_toBottomOf="@+id/jdate" />
+
+    <TextView
+        android:id="@+id/amt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="19dp"
+        android:text="TextView"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/img8"
+        app:layout_constraintTop_toBottomOf="@+id/bType" />
+
+    <TextView
+        android:id="@+id/btime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="19dp"
+        android:text="TextView"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/img10"
+        app:layout_constraintTop_toBottomOf="@+id/seats" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
