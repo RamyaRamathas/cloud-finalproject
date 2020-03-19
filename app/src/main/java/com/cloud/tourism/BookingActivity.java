@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -455,7 +456,15 @@ public class BookingActivity extends AppCompatActivity{
                 Toast.makeText(BookingActivity.this, "Could not retrieve data!", Toast.LENGTH_SHORT).show();
             }
         }
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                //params.put("Authorization", "Nintendo Gameboy");
+
+                return params;
+            }
+        };
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
     }
@@ -527,7 +536,15 @@ public class BookingActivity extends AppCompatActivity{
                 //Toast.makeText(BookingActivity.this, "No Routes Found!", Toast.LENGTH_SHORT).show();
             }
         }
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                //params.put("Authorization", "Nintendo Gameboy");
+
+                return params;
+            }
+        };
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
     }
@@ -586,7 +603,15 @@ public class BookingActivity extends AppCompatActivity{
                 //Toast.makeText(BookingActivity.this, "No Routes Found!", Toast.LENGTH_SHORT).show();
             }
         }
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                //params.put("Authorization", "Nintendo Gameboy");
+
+                return params;
+            }
+        };
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
     }
@@ -640,6 +665,14 @@ public class BookingActivity extends AppCompatActivity{
                 }
 
                 params.put("totalSeats", totalSeats+"");
+
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                //params.put("Authorization", "Nintendo Gameboy");
 
                 return params;
             }

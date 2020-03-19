@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -97,6 +98,13 @@ public class PaymentActivity extends AppCompatActivity {
                 params.put("mm", strMM+"");
                 params.put("yy", strYY+"");
                 params.put("cvv", strCVV+"");
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                //params.put("Authorization", "Nintendo Gameboy");
 
                 return params;
             }
