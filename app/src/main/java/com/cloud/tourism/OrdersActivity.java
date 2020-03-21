@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,9 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class OrdersActivity extends AppCompatActivity {
 
@@ -76,7 +73,7 @@ public class OrdersActivity extends AppCompatActivity {
                 in.putExtra("busType",bType);
                 startActivity(in);
 
-                //Toast.makeText(OrdersActivity.this, ""+jsource+"\n"+jdest+"\n"+amount+"\n"+btime+"\n"+totseats+"\n"+jdate+"\n"+jdur+"\n"+bType, Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrdersActivity.this, ""+jsource+"\n"+jdest+"\n"+amount+"\n"+btime+"\n"+totseats+"\n"+jdate+"\n"+jdur+"\n"+bType, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -135,15 +132,7 @@ public class OrdersActivity extends AppCompatActivity {
                 Toast.makeText(OrdersActivity.this, "No Routes Found!", Toast.LENGTH_SHORT).show();
             }
         }
-        ){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String>  params = new HashMap<String, String>();
-                //params.put("Authorization", "Nintendo Gameboy");
-
-                return params;
-            }
-        };
+        );
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
     }
