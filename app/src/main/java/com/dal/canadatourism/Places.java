@@ -28,8 +28,8 @@ public class Places extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
     //private static final String url = "http://dev-info.us-east-1.elasticbeanstalk.com/touristLocations";
-    private static final String urlq = "https://839z6wvnkc.execute-api.us-east-1.amazonaws.com/dev/info/cities/all";
-    private static final String url = "https://839z6wvnkc.execute-api.us-east-1.amazonaws.com/dev/info/touristLocations";
+    private static final String urlq = "https://kv80bjp518.execute-api.us-east-1.amazonaws.com/prod/info/cities/all";
+    private static final String url = "https://kv80bjp518.execute-api.us-east-1.amazonaws.com/prod/info/touristLocations";
     private RecyclerView recyclerView;
 
     public String temp;

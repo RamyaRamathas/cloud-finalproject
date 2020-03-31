@@ -1,7 +1,9 @@
 package com.dal.canadatourism;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -19,6 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OrdersActivity extends AppCompatActivity {
 
@@ -35,19 +40,23 @@ public class OrdersActivity extends AppCompatActivity {
     ArrayList<String> contact = new ArrayList<>();
     ArrayList<String> busType = new ArrayList<>();
     ArrayList<String> listVal = new ArrayList<>();
+    String token = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
 
+        SharedPreferences pref = (OrdersActivity.this).getSharedPreferences("login",MODE_WORLD_WRITEABLE); // 0 - for private mode
+        token = pref.getString("token","");
+        Log.d("Order token",""+token);
         lv = (ListView) findViewById(R.id.list);
 
         adapter = new ArrayAdapter<String>(OrdersActivity.this, android.R.layout.simple_list_item_1, listVal);
 
         lv.setAdapter(adapter);
 
-        getBookingInfo("1");
+        getBookingInfo();
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,8 +86,8 @@ public class OrdersActivity extends AppCompatActivity {
         });
     }
 
-    public void getBookingInfo(String userId){
-        final String url = "https://839z6wvnkc.execute-api.us-east-1.amazonaws.com/dev/booking/booking/bookingInfoByUserId?userId="+userId;
+    public void getBookingInfo(){
+        final String url = "https://kv80bjp518.execute-api.us-east-1.amazonaws.com/prod/booking/booking/bookingInfoByUserId";
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -131,7 +140,17 @@ public class OrdersActivity extends AppCompatActivity {
                 Toast.makeText(OrdersActivity.this, "No Routes Found!", Toast.LENGTH_SHORT).show();
             }
         }
-        );
+        ){
+
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", token);
+                return params;
+            }
+        };
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
     }

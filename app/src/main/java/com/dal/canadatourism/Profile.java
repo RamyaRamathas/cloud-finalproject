@@ -22,6 +22,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,7 +47,7 @@ public class Profile extends Fragment {
 
     private static ArrayList<String> bookimglist_tosend = new ArrayList<>();
 
-    Button btn,btn1;
+    Button btn,btn1, btn2;
     private Object ContentResolver;
 
 
@@ -59,6 +63,7 @@ public class Profile extends Fragment {
 //        name = view.findViewById(R.id.text1);
         btn = view.findViewById(R.id.login);
         btn1 = view.findViewById(R.id.signup);
+        btn2 = view.findViewById(R.id.logout);
         msg = view.findViewById(R.id.textView15);
 
         SharedPreferences pref = (getActivity()).getSharedPreferences("login",0); // 0 - for private mode
@@ -67,6 +72,7 @@ public class Profile extends Fragment {
         if(saved == 1){
             btn.setVisibility(View.INVISIBLE);
             btn1.setVisibility(View.INVISIBLE);
+            btn2.setVisibility(View.VISIBLE);
             msg.setText("You are logged-in already!");
             Toast.makeText(getActivity(), "Already Logged In!", Toast.LENGTH_SHORT).show();
         }
@@ -85,6 +91,47 @@ public class Profile extends Fragment {
             public void onClick(View v) {
                 Intent intentStart = new Intent(getActivity(), Signup.class);
                 startActivity(intentStart);
+//        finish();
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Cognito cognito = new Cognito(getContext());
+                CognitoUserPool pool = cognito.getPool();
+                if (pool != null) {
+                    //Toast.makeText(getContext(), "pool", Toast.LENGTH_SHORT).show();
+                    CognitoUser user = pool.getCurrentUser();
+                    if (user != null) {
+                        //Toast.makeText(getContext(), "user", Toast.LENGTH_SHORT).show();
+                        GenericHandler handler = new GenericHandler() {
+
+                            @Override
+                            public void onSuccess() {
+                                Toast.makeText(getContext(), "Logged out!", Toast.LENGTH_SHORT).show();
+                                SharedPreferences pref = getContext().getSharedPreferences("login",0); // 0 - for private mode
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putInt("saved",0);
+                                editor.putString("token","null");
+                                editor.commit();
+
+                                btn.setVisibility(View.VISIBLE);
+                                btn1.setVisibility(View.VISIBLE);
+                                btn2.setVisibility(View.INVISIBLE);
+                                msg.setText("Select an action!");
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+                                Toast.makeText(getContext(), ""+e, Toast.LENGTH_SHORT).show();
+                            }
+                        };
+                        user.globalSignOutInBackground(handler);
+                    }
+                }
+
 //        finish();
             }
         });

@@ -7,11 +7,16 @@ package com.dal.canadatourism;
  */
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
@@ -29,6 +34,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHan
 import com.amazonaws.regions.Regions;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_WORLD_WRITEABLE;
 
 public class Cognito {
     // ############################################################# Information about Cognito Pool
@@ -37,7 +43,7 @@ public class Cognito {
     private String clientSecret = "vvuaqap4scmugf5rpeuickmi7rmgkjb8itdrl6re77q00qmfga1";
     private Regions awsRegion = Regions.US_EAST_1;         // Place your Region
     // ############################################################# End of Information about Cognito Pool
-    private CognitoUserPool userPool;
+    public static CognitoUserPool userPool;
     private CognitoUserAttributes userAttributes;       // Used for adding attributes to the user
     private Context appContext;
     public static CognitoUser cognitoUser;
@@ -47,6 +53,7 @@ public class Cognito {
     public static int del = 1000;
 
     public Cognito(Context context){
+
         appContext = context;
         userPool = new CognitoUserPool(context, this.poolID, this.clientID, this.clientSecret, this.awsRegion);
         userAttributes = new CognitoUserAttributes();
@@ -77,7 +84,7 @@ public class Cognito {
         }
         @Override
         public void onFailure(Exception exception) {
-            Toast.makeText(appContext,"Sign-up failed"+exception, Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext,"Sign-up failed", Toast.LENGTH_LONG).show();
             Log.d(TAG, "Sign-up failed: " + exception);
         }
     };
@@ -94,7 +101,9 @@ public class Cognito {
         public void onSuccess() {
             // User was successfully confirmed
             Toast.makeText(appContext,"User Confirmed", Toast.LENGTH_LONG).show();
-
+            Intent i = new Intent(appContext, Profile.class);
+            //Toast.makeText(appContext, ""+userSession.getUsername(), Toast.LENGTH_SHORT).show();
+            appContext.startActivity(i);
         }
 
         @Override
@@ -124,16 +133,17 @@ public class Cognito {
 
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
-            //Toast.makeText(appContext,"Sign in success ", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext,"Sign in success ", Toast.LENGTH_LONG).show();
             System.out.println(userSession.getIdToken().getJWTToken());
 
-            SharedPreferences pref = appContext.getSharedPreferences("login",0); // 0 - for private mode
+            SharedPreferences pref = appContext.getSharedPreferences("login",MODE_WORLD_WRITEABLE); // 0 - for private mode
             SharedPreferences.Editor editor = pref.edit();
             editor.putInt("saved",1);
+            editor.putString("token",userSession.getIdToken().getJWTToken());
             editor.commit();
 
             Intent i = new Intent(appContext, BookingActivity.class);
-            //Toast.makeText(appContext, ""+userSession.getUsername(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(appContext, "Welcome "+userSession.getUsername(), Toast.LENGTH_SHORT).show();
             i.putExtra("token",userSession.getIdToken().getJWTToken());
             appContext.startActivity(i);
         }
@@ -148,7 +158,7 @@ public class Cognito {
             // Allow the sign-in to continue
             authenticationContinuation.continueTask();
             //Toast.makeText(appContext, ""+getClientID(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(appContext, "details", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(appContext, "details", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -157,19 +167,52 @@ public class Cognito {
 
 
 
-            new Handler().postDelayed(new Runnable() {
+            LayoutInflater lin = LayoutInflater.from(appContext);
+            View mfa_verif_view = lin.inflate(R.layout.verification_code, null);
 
-                @Override
-                public void run() {
+            AlertDialog.Builder alert = new AlertDialog.Builder(appContext);
 
-                    if(code.length()==6) {
-                        Toast.makeText(appContext, "" + code, Toast.LENGTH_SHORT).show();
-                        multiFactorAuthenticationContinuation.setMfaCode(code);
-                        multiFactorAuthenticationContinuation.continueTask();
-                    }
+            // set mfa_verification_code.xml to alert
+            alert.setView(mfa_verif_view);
 
-                }
-            }, 12000 );//time in milisecond
+            final EditText mfa_code = (EditText) mfa_verif_view.findViewById(R.id.ver_code);
+
+            // set dialog message
+            alert.setCancelable(false).setPositiveButton("OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            code = mfa_code.getText().toString();
+                            // Log.i(TAG, "in dialog()..."+code+": "+mfa_code);
+                            multiFactorAuthenticationContinuation.setMfaCode(code);
+                            multiFactorAuthenticationContinuation.continueTask();
+                        }
+                    })
+                    .setNegativeButton("Cancel",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+            // create alert dialog
+            AlertDialog alertDialogBox = alert.create();
+
+            // show it
+            alertDialogBox.show();
+
+//            new Handler().postDelayed(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//
+//                    if(code.length()==6) {
+//                        Toast.makeText(appContext, "" + code, Toast.LENGTH_SHORT).show();
+//                        multiFactorAuthenticationContinuation.setMfaCode(code);
+//                        multiFactorAuthenticationContinuation.continueTask();
+//                    }
+//
+//                }
+//            }, 12000 );//time in milisecond
 
 
         }
@@ -177,7 +220,7 @@ public class Cognito {
         @Override
         public void onFailure(Exception exception) {
             // Sign-in failed, check exception for the cause
-            Toast.makeText(appContext,"Sign in Failure"+exception, Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext,"Sign in Failure! Wrong password or OTP!", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -213,4 +256,7 @@ public class Cognito {
         this.awsRegion = awsRegion;
     }
 
+    public static CognitoUserPool getPool() {
+        return userPool;
+    }
 }

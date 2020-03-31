@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -68,8 +67,8 @@ public class Login extends AppCompatActivity {
                 Cognito authentication = new Cognito(Login.this);
                 authentication.userLogin(etUsername.getText().toString().replace(" ", ""), etPassword.getText().toString(), code);
 
-                btnMFA.setVisibility(View.VISIBLE);
-                txtCode.setVisibility(View.VISIBLE);
+                //btnMFA.setVisibility(View.VISIBLE);
+                //txtCode.setVisibility(View.VISIBLE);
             }
         });
 

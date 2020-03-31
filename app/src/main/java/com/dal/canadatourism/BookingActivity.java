@@ -2,8 +2,10 @@ package com.dal.canadatourism;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -97,11 +99,15 @@ public class BookingActivity extends AppCompatActivity{
 
         //Toast.makeText(this, ""+getIntent().getStringExtra("token"), Toast.LENGTH_SHORT).show();
 
-        to = "Ottawa";
+        from = "Halifax";
+        to = "Burlington";
 
-        token = getIntent().getStringExtra("token");
+
+        SharedPreferences pref = (BookingActivity.this).getSharedPreferences("login",MODE_WORLD_WRITEABLE); // 0 - for private mode
+
+        token = pref.getString("token","");
         //Toast.makeText(this, ""+token, Toast.LENGTH_SHORT).show();
-
+        Log.d("Booking token",""+token);
         b = (Button) findViewById(R.id.button);
 
         fromSpinner = (Spinner) findViewById(R.id.fromSpinner);
@@ -415,7 +421,7 @@ public class BookingActivity extends AppCompatActivity{
     }
 
     public void getCities(){
-        final String url = "https://839z6wvnkc.execute-api.us-east-1.amazonaws.com/dev/info/cities/all";
+        final String url = "https://kv80bjp518.execute-api.us-east-1.amazonaws.com/prod/info/cities/all";
 
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET, url, null,
@@ -476,7 +482,7 @@ public class BookingActivity extends AppCompatActivity{
     }
 
     public void getJourneys(String command){
-        final String url = "https://839z6wvnkc.execute-api.us-east-1.amazonaws.com/dev/booking/journey/"+command;
+        final String url = "https://kv80bjp518.execute-api.us-east-1.amazonaws.com/prod/booking/journey/"+command;
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -554,7 +560,7 @@ public class BookingActivity extends AppCompatActivity{
     }
 
     public void getJourneysSeatType(String command) {
-        final String url = "https://839z6wvnkc.execute-api.us-east-1.amazonaws.com/dev/booking/journey/" + command;
+        final String url = "https://kv80bjp518.execute-api.us-east-1.amazonaws.com/prod/booking/journey/" + command;
 
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET, url, null,
@@ -627,7 +633,7 @@ public class BookingActivity extends AppCompatActivity{
     public int checkSeats(final String journeyId, final int totalSeats){
 
 
-        final String url = "https://839z6wvnkc.execute-api.us-east-1.amazonaws.com/dev/booking/booking/getBookingConfirmation?journeyId="+journeyId+"&totalSeats="+totalSeats;
+        final String url = "https://kv80bjp518.execute-api.us-east-1.amazonaws.com/prod/booking/booking/getBookingConfirmation?journeyId="+journeyId+"&totalSeats="+totalSeats;
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()

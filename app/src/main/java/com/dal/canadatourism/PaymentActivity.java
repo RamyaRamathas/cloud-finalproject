@@ -57,22 +57,26 @@ public class PaymentActivity extends AppCompatActivity {
 
                 book(journeyId, amount, seats, strCard, strCname, strMM, strYY, strCVV);
 
-                Toast.makeText(PaymentActivity.this, "Booking Successful!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(PaymentActivity.this, HomePage.class));
             }
         });
     }
 
     public void book(final int journeyId, final Double amt, final int totalSeats, final String strCard, final String strCname, final String strMM, final String strYY, final String strCVV){
 
-        final String url = "https://839z6wvnkc.execute-api.us-east-1.amazonaws.com/dev/booking/booking/addBooking";
+        final String url = "https://kv80bjp518.execute-api.us-east-1.amazonaws.com/prod/booking/booking/addBooking";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(PaymentActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+
+                        if(response.contains("Invalid")) {
+                            Toast.makeText(PaymentActivity.this, "Invalid Card credentials!", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(PaymentActivity.this, "Booking Successful!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentActivity.this, HomePage.class));
+                        }
                     }
                 },
                 new Response.ErrorListener()
