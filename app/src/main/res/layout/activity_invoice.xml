@@ -14,7 +14,9 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/rectangle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"></RelativeLayout>
+        app:layout_constraintTop_toBottomOf="@+id/dsd">
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/img6"
@@ -105,7 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/dsd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
@@ -126,7 +128,7 @@
         android:textSize="17dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/dsd" />
 
     <TextView
         android:id="@+id/tv"

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewPageAdapter">
+
+    <include layout="@layout/navigation" android:id="@+id/navi"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:text="Top Cities"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/text1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:id="@+id/load"
+        android:text="Load more"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20sp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card1"
+        android:layout_below="@id/text1"
+        app:cardCornerRadius="6dp"
+        android:layout_margin="16dp"
+        android:paddingTop="20sp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ViewFlipper
+            android:layout_width="match_parent"
+            android:id="@+id/flipper"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card1"
+        android:text="Top attractions"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/text21"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card2"
+        android:layout_below="@id/text21"
+        app:cardCornerRadius="6dp"
+        android:layout_margin="16dp"
+        android:paddingTop="20sp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ViewFlipper
+            android:layout_width="match_parent"
+            android:id="@+id/flipper1"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

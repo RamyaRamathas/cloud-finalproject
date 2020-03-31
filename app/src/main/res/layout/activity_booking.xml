@@ -6,17 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".BookingActivity">
 
-<!--
-    <RelativeLayout
-        android:id="@+id/relativeLayout5"
-        android:layout_width="394dp"
-        android:layout_height="264dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/rectangle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"></RelativeLayout>
--->
+    <!--
+        <RelativeLayout
+            android:id="@+id/relativeLayout5"
+            android:layout_width="394dp"
+            android:layout_height="264dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rectangle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"></RelativeLayout>
+    -->
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="396dp"
@@ -105,16 +105,16 @@
 
 
     <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="24dp"
-            android:text="Location Details"
-            android:textStyle="bold|italic"
-            android:textSize="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="24dp"
+        android:text="Location Details"
+        android:textStyle="bold|italic"
+        android:textSize="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
@@ -329,14 +329,24 @@
 
     <Button
         android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:layout_width="142dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rectangle"
         android:text="Pay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="142dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="16dp"
+        android:text="View Previous Bookings"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -378,15 +388,5 @@
         android:text="Tax"
         app:layout_constraintStart_toEndOf="@+id/img3"
         app:layout_constraintTop_toBottomOf="@+id/txt_duration" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="60dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

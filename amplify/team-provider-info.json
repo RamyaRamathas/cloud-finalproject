@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-canadatourism-dev-174820-authRole",
+            "UnauthRoleArn": "arn:aws:iam::256546179369:role/amplify-canadatourism-dev-174820-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::256546179369:role/amplify-canadatourism-dev-174820-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-canadatourism-dev-174820-deployment",
+            "UnauthRoleName": "amplify-canadatourism-dev-174820-unauthRole",
+            "StackName": "amplify-canadatourism-dev-174820",
+            "StackId": "arn:aws:cloudformation:us-east-1:256546179369:stack/amplify-canadatourism-dev-174820/cf7a5c50-6959-11ea-874b-0e4a688d3275",
+            "AmplifyAppId": "dmhsmkj5nkinb"
+        },
+        "categories": {
+            "auth": {
+                "canadatourismbb006829": {}
+            }
+        }
+    }
+}

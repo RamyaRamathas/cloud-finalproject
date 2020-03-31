@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.cloud.tourism"
-        minSdkVersion 22
+        applicationId "com.dal.canadatourism"
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -21,15 +23,31 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
+    implementation 'androidx.navigation:navigation-fragment:2.1.0'
+    implementation 'androidx.navigation:navigation-ui:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
+    implementation 'com.amazonaws:aws-android-sdk-appsync:2.6.+'
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
+    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+    implementation 'com.google.android.material:material:1.1.0-alpha04'
+    implementation 'com.karumi:dexter:5.0.0'
     implementation 'com.android.volley:volley:1.1.0'
+    //implementation 'com.android.support:recyclerview-v7:29.0.0'
 
-    // AWS Dependencies
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.android.support:recyclerview-v7:+'
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    //AWS dependencies
+    implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.amazonaws:aws-android-sdk-core:2.7.4'
     implementation 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.7.0'
 }
