@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -84,6 +86,25 @@ public class OrdersActivity extends AppCompatActivity {
                 //Toast.makeText(OrdersActivity.this, ""+jsource+"\n"+jdest+"\n"+amount+"\n"+btime+"\n"+totseats+"\n"+jdate+"\n"+jdur+"\n"+bType, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu, menu);
+
+        MenuItem item=menu.add("Title"); //your desired title here
+        item.setIcon(R.drawable.home); //your desired icon here
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(getApplicationContext(),HomePage.class));
+                return false;
+            }
+        });
+
+        return true;
     }
 
     public void getBookingInfo(){
