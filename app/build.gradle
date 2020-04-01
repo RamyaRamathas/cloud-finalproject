@@ -50,4 +50,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.amazonaws:aws-android-sdk-core:2.7.4'
     implementation 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.7.0'
+
+    implementation 'com.jjoe64:graphview:4.2.2'
+
 }

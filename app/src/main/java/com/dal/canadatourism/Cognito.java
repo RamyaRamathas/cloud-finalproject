@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,10 +70,45 @@ public class Cognito {
         @Override
         public void onSuccess(CognitoUser cognitoUser, boolean userConfirmed, CognitoUserCodeDeliveryDetails cognitoUserCodeDeliveryDetails) {
             // Sign-up was successful
-            Log.d(TAG, "Sign-up success");
-            Toast.makeText(appContext,"Sign-up attempt", Toast.LENGTH_LONG).show();
+            Log.d(TAG, "Sign-up attempt");
+            //Toast.makeText(appContext,"Sign-up attempt", Toast.LENGTH_LONG).show();
             // Check if this user (cognitoUser) needs to be confirmed
             if(!userConfirmed) {
+                Toast.makeText(appContext,"Verification code sent!", Toast.LENGTH_SHORT).show();
+
+                LayoutInflater lin = LayoutInflater.from(appContext);
+                View mfa_verif_view = lin.inflate(R.layout.verification_code_signup, null);
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(appContext);
+
+                // set mfa_verification_code.xml to alert
+                alert.setView(mfa_verif_view);
+
+                final EditText mfa_code = (EditText) mfa_verif_view.findViewById(R.id.ver_code);
+
+                // set dialog message
+                alert.setCancelable(false).setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                code = mfa_code.getText().toString();
+                                Cognito.this.confirmUser(Signup.userId,code);
+                                // Log.i(TAG, "in dialog()..."+code+": "+mfa_code);
+
+                            }
+                        })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog
+                AlertDialog alertDialogBox = alert.create();
+
+                // show it
+                alertDialogBox.show();
+
                 // This user must be confirmed and a confirmation code was sent to the user
                 // cognitoUserCodeDeliveryDetails will indicate where the confirmation code was sent
                 // Get the confirmation code from user
@@ -84,7 +120,7 @@ public class Cognito {
         }
         @Override
         public void onFailure(Exception exception) {
-            Toast.makeText(appContext,"Sign-up failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(appContext,"Sign-up failed! Possible reasons: \n1. Invalid value in either of the fields\n2. Email address already registered\n3. Username exists", Toast.LENGTH_LONG).show();
             Log.d(TAG, "Sign-up failed: " + exception);
         }
     };
@@ -92,6 +128,7 @@ public class Cognito {
     public void confirmUser(String userId, String code){
         CognitoUser cognitoUser =  userPool.getUser(userId);
         cognitoUser.confirmSignUpInBackground(code,false, confirmationCallback);
+
         //cognitoUser.confirmSignUp(code,false, confirmationCallback);
     }
     // Callback handler for confirmSignUp API
@@ -100,16 +137,24 @@ public class Cognito {
         @Override
         public void onSuccess() {
             // User was successfully confirmed
-            Toast.makeText(appContext,"User Confirmed", Toast.LENGTH_LONG).show();
-            Intent i = new Intent(appContext, Profile.class);
-            //Toast.makeText(appContext, ""+userSession.getUsername(), Toast.LENGTH_SHORT).show();
-            appContext.startActivity(i);
+            Toast.makeText(appContext,"User Confirmed!", Toast.LENGTH_LONG).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    Intent i = new Intent(appContext, HomePage.class);
+                    //Toast.makeText(appContext, ""+userSession.getUsername(), Toast.LENGTH_SHORT).show();
+                    appContext.startActivity(i);
+                }
+            }, 1000 );//time in milisecond
+
         }
 
         @Override
         public void onFailure(Exception exception) {
             // User confirmation failed. Check exception for the cause.
-
+            Toast.makeText(appContext,"Sign up failed! Invalid code or the email already exists", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -165,10 +210,8 @@ public class Cognito {
         public void getMFACode(final MultiFactorAuthenticationContinuation multiFactorAuthenticationContinuation) {
             //Multi-factor authentication is required; get the verification code from user
 
-
-
             LayoutInflater lin = LayoutInflater.from(appContext);
-            View mfa_verif_view = lin.inflate(R.layout.verification_code, null);
+            View mfa_verif_view = lin.inflate(R.layout.verification_code_login, null);
 
             AlertDialog.Builder alert = new AlertDialog.Builder(appContext);
 

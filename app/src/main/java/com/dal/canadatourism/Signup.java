@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +24,7 @@ public class Signup extends AppCompatActivity {
 
     // ############################################################# Cognito connection
     Cognito authentication;
-    private String userId;
+    public static String userId;
     // ############################################################# End Cognito connection
 
     @Override
@@ -51,14 +52,19 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(etPass.getText().toString().endsWith(etRepeatPass.getText().toString())){
-                    userId = etUsername.getText().toString().replace(" ", "");
-                    authentication.addAttribute("name", userId);
-                    authentication.addAttribute("phone_number", etMobile.getText().toString().replace(" ", ""));
-                    authentication.addAttribute("email", etEmail.getText().toString().replace(" ", ""));
-                    authentication.signUpInBackground(userId, etPass.getText().toString());
+                    if(etMobile.getText().toString().replace(" ", "").length()!=12){
+                        Toast.makeText(Signup.this, "Invalid phone number! Please include the country code.", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Cognito authentication = new Cognito(Signup.this);
+                        userId = etUsername.getText().toString().replace(" ", "");
+                        authentication.addAttribute("name", userId);
+                        authentication.addAttribute("phone_number", etMobile.getText().toString().replace(" ", ""));
+                        authentication.addAttribute("email", etEmail.getText().toString().replace(" ", ""));
+                        authentication.signUpInBackground(userId, etPass.getText().toString());
 
-                    etConfCode.setVisibility(View.VISIBLE);
-                    btnVerify.setVisibility(View.VISIBLE);
+                        //etConfCode.setVisibility(View.VISIBLE);
+                        //btnVerify.setVisibility(View.VISIBLE);
+                    }
                 }
                 else{
 
@@ -69,7 +75,7 @@ public class Signup extends AppCompatActivity {
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                authentication.confirmUser(userId, etConfCode.getText().toString().replace(" ", ""));
+                //authentication.confirmUser(userId, etConfCode.getText().toString().replace(" ", ""));
                 //finish();
             }
         });

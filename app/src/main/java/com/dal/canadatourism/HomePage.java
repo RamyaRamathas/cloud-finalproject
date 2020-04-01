@@ -46,7 +46,7 @@ public class HomePage extends AppCompatActivity {
                             menuItem.setChecked(true);
                             fragmentTransaction.commit();
                             tx.setVisibility(View.INVISIBLE);
-                            Toast.makeText(HomePage.this, " Home", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(HomePage.this, " Home", Toast.LENGTH_SHORT).show();
                             //Intent intentStart = new Intent(HomePage.this, ViewPageAdapter.class);
                             //startActivity(intentStart);
                             //finish();
@@ -54,7 +54,7 @@ public class HomePage extends AppCompatActivity {
                             break;
                         case  R.id.navigation_find :
                             fragmentTransaction.replace(R.id.fragment,new Booking());
-                            Toast.makeText(HomePage.this, " Booking", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(HomePage.this, " Booking", Toast.LENGTH_SHORT).show();
                             menuItem.setChecked(true);
                             tx.setVisibility(View.INVISIBLE);
                             fragmentTransaction.commit();
@@ -62,7 +62,7 @@ public class HomePage extends AppCompatActivity {
                             break;
                         case  R.id.navigation_profile :
                             fragmentTransaction.replace(R.id.fragment,new Profile());
-                            Toast.makeText(HomePage.this, "Profile", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(HomePage.this, "Profile", Toast.LENGTH_SHORT).show();
                             menuItem.setChecked(true);
                             tx.setVisibility(View.INVISIBLE);
                             fragmentTransaction.commit();

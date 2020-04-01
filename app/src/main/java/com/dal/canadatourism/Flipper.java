@@ -51,7 +51,7 @@ public class Flipper extends AppCompatActivity {
         ImageView imageView = new ImageView(this);
         imageView.setBackgroundResource(image);
         viewFlipper.addView(imageView);
-        viewFlipper.setFlipInterval(4000);
+        viewFlipper.setFlipInterval(2000);
         viewFlipper.setAutoStart(true);
 
         viewFlipper.setInAnimation(this, android.R.anim.fade_in);
@@ -63,7 +63,7 @@ public class Flipper extends AppCompatActivity {
         ImageView imageView1 = new ImageView(this);
         imageView1.setBackgroundResource(image);
         viewFlipper1.addView(imageView1);
-        viewFlipper1.setFlipInterval(10000);
+        viewFlipper1.setFlipInterval(4000);
         viewFlipper1.setAutoStart(true);
 
         viewFlipper1.setInAnimation(this, android.R.anim.slide_in_left);
